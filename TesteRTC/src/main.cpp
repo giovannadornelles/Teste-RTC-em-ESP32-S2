@@ -3,8 +3,8 @@
 #include <time.h> 
 
 // --- Configurações do Wi-Fi ---
-const char* ssid = "iPhone de Giovanna";         // <-- MUDAR
-const char* password = "ningning";    // <-- MUDAR
+const char* ssid = "...";         // <-- MUDAR
+const char* password = "...";    // <-- MUDAR
 const long timezoneOffset = -10800; // -3 horas (Brasil) = -10800 segundos
 
 // Um cliente UDP para o NTP

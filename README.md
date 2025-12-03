@@ -1,0 +1,47 @@
+# Projeto ESP32-S2 RTC/Wi-Fi (Relógio com Backup de Tempo)
+
+Este projeto implementa um Relógio de Tempo Real (RTC) no microcontrolador ESP32-S2 Saola-1. Seu objetivo principal é sincronizar a hora e data pela internet (NTP) e usar o RTC interno como um mecanismo de backup para manter o tempo em funcionamento mesmo sem conexão Wi-Fi.
+
+---
+
+## Funcionalidades
+
+* **Sincronização NTP:** Conecta-se a um servidor de Network Time Protocol (NTP) para obter a hora exata ao inicializar, garantindo precisão.
+* **Backup Interno (RTC):** Utiliza o Relógio de Tempo Real (RTC) embutido no chip ESP32-S2 para manter a contagem do tempo.
+* **Modo Dinâmico:** Alterna logicamente entre o modo **ONLINE** (sincronizando/atualizando via NTP) e **OFFLINE** (puxando a hora do RTC interno).
+* **Monitor Serial:** Exibe o status da conexão, o modo de operação e a hora atual no Monitor Serial.
+
+---
+
+## Limitações do Hardware
+
+* **Volatilidade do RTC:** O RTC interno do ESP32-S2 **não retém a hora** após uma perda total de energia ou um Hard Reset (apertar o botão RST, que na placa Saola-1 se comporta como um Power-On Reset).
+* **Persistência:** O backup do RTC funciona **apenas** enquanto o ESP32-S2 permanecer conectado à alimentação USB. Para persistência de longo prazo (após desligar o USB), seria necessário integrar um módulo RTC externo com bateria (ex: DS3231).
+
+---
+
+## Requisitos de Hardware
+
+* Placa **Espressif ESP32-S2 Saola-1**.
+* Cabo Micro USB para alimentação e programação.
+
+---
+
+## Configuração do Projeto (PlatformIO)
+
+### 1. Arquivo `platformio.ini`
+
+O projeto deve usar o *framework* Arduino e as seguintes dependências.
+
+```ini
+[env:esp32-s2-saola-1]
+platform = espressif32
+board = esp32-s2-saola-1
+framework = arduino
+monitor_speed = 115200
+
+lib_deps =
+    # Biblioteca para Network Time Protocol (NTP)
+    NTPClient 
+    # Biblioteca para comunicação Wi-Fi
+    WiFi
